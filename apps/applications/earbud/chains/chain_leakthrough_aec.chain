@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Copyright (c) 2018 Qualcomm Technologies International, Ltd.-->
+
+<chain name="CHAIN_LEAKTHROUGH_AEC" id="1" generate_endpoint_roles_enum="False" generate_operator_roles_enum="False">
+
+    <include_header name="../av_headset_chain_roles.h"/>
+
+    <operator name="OPR_LEAKTHROUGH_AEC" id="CAP_ID_DOWNLOAD_AEC_REFERENCE">
+        <sink name="SPEAKER1_IN" terminal="0"/>
+        <sink name="MIC1_IN" terminal="2"/>
+        <source name="SPEAKER1_OUT" terminal="1"/>
+        <source name="MIC1_OUT" terminal="3"/>
+    </operator>
+	
+    <operator name="OPR_LEAKTHROUGH_INPUT_SPC" id="EB_CAP_ID_SWITCHED_PASSTHROUGH">
+        <sink name="IN" terminal="0"/>
+    </operator>
+
+    <input sink="OPR_LEAKTHROUGH_AEC.SPEAKER1_IN" role="EPR_LEAKTHROUGH_IN"/>
+
+    <connection source="OPR_LEAKTHROUGH_AEC.MIC1_OUT" sink="OPR_LEAKTHROUGH_INPUT_SPC.IN"/>
+
+    <output source="OPR_LEAKTHROUGH_AEC.SPEAKER1_OUT" role = "EPR_A2DP_LEAKTHROUGH_AEC_OUT"/>
+	
+</chain>
